@@ -24,7 +24,7 @@ export class AppController {
   @HealthCheck()
   checkHealth() {
     return this.healthCheckService.check([
-      () => this.http.pingCheck('Basic Check', 'http://localhost:4000/api/v1'),
+      () => this.http.pingCheck('Basic Check', 'http://localhost:4000/api'),
       () => this.db.pingCheck('mongoose'),
     ]);
   }
