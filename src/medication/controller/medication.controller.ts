@@ -25,4 +25,10 @@ export class MedicationController {
     async getAllMedications() {
         return this.medicationService.getAllMedications();
     }
+
+    //get medication by id
+    @Get(':id')
+    async getMedicationById(@Param('id') id: string) {
+        return this.medicationService.getMedicationById(id);
+    }
 }
