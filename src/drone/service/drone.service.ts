@@ -79,7 +79,6 @@ export class DroneService {
     }
   }
 
-
   async loadDrone(id: string, medication: string[]): Promise<DroneEntity> {
     try {
       const drone = await this.droneModel.findById(id);
@@ -92,7 +91,7 @@ export class DroneService {
       if (drone.batteryCapacity < 25) {
         throw new BadRequestException('Drone battery is low');
       }
-      
+
       let totalWeight = 0;
       for (const key of medication) {
         const med = await this.medicationService.getMedicationById(key);
@@ -104,6 +103,7 @@ export class DroneService {
       //if all is good, we will update the drone state to LOADING and decrement the batteryCapacity
       drone.state = DroneStateEnum.LOADING;
       drone.batteryCapacity -= 5;
+      drone.medicationItems.push(...medication);
       await drone.save();
       return drone;
     } catch (error) {
@@ -111,19 +111,25 @@ export class DroneService {
     }
   }
 
-  //checking loaded medication items for a given drone;
-    async checkLoadedMedication(id: string): Promise<DroneEntity> {
+  //deliver medication items
+    async deliverMedication(id: string): Promise<DroneEntity> {
         try {
             const drone = await this.droneModel.findById(id);
             if (!drone) {
                 throw new NotFoundException('Drone not found');
             }
-            if (drone.state === 'LOADING') {
-                throw new BadRequestException('Drone is loading');
-            }
             if (drone.state === 'DELIVERING') {
-                throw new BadRequestException('Drone is delivering');
+                throw new BadRequestException('Drone is already delivering');
             }
+            if (drone.batteryCapacity < 25) {
+                throw new BadRequestException('Drone battery is low');
+            }
+            if (drone.medicationItems.length === 0) {
+                throw new BadRequestException('Drone has no medication items');
+            }
+            drone.state = DroneStateEnum.DELIVERING;
+            drone.batteryCapacity -= 5;
+            await drone.save();
             return drone;
         } catch (error) {
             throw new InternalServerErrorException(error.message);
