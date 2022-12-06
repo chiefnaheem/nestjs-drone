@@ -101,7 +101,7 @@ export class DroneService {
         throw new BadRequestException('Drone weight limit exceeded');
       }
       //if all is good, we will update the drone state to LOADING and decrement the batteryCapacity
-      drone.state = 'LOADING';
+      drone.state = DroneStateEnum.LOADING;
       drone.batteryCapacity -= 5;
       await drone.save();
       return drone;
