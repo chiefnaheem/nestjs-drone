@@ -138,4 +138,25 @@ export class DroneService {
     }
   }
 
+    //recharge drone
+    async rechargeDrone(id: string): Promise<DroneEntity> {
+        try {
+            const drone = await this.droneModel.findById
+            (id);
+            if (!drone) {
+                throw new NotFoundException('Drone not found');
+            }
+            
+            if (drone.batteryCapacity === 100) {
+                throw new BadRequestException('Drone battery is full');
+            }
+           
+            drone.batteryCapacity = 100;
+            await drone.save();
+            return drone;
+        } catch (error) {
+            throw new InternalServerErrorException(error.message);
+        }
+    }
+
 }
