@@ -127,7 +127,7 @@ export class DroneService {
       if (drone.medicationItems.length === 0) {
         throw new BadRequestException('Drone is empty');
       }
-      
+
       drone.state = DroneStateEnum.DELIVERING;
       drone.batteryCapacity -= 5;
       drone.medicationItems = [];
@@ -137,5 +137,28 @@ export class DroneService {
       throw new InternalServerErrorException(error.message);
     }
   }
+
+    //recharge drone
+    async rechargeDrone(id: string): Promise<DroneEntity> {
+        try {
+            const drone = await this.droneModel.findById
+            (id);
+            if (!drone) {
+                throw new NotFoundException('Drone not found');
+            }
+            if (drone.state === 'RECHARGING') {
+                throw new BadRequestException('Drone is already recharging');
+            }
+            if (drone.batteryCapacity === 100) {
+                throw new BadRequestException('Drone battery is full');
+            }
+            drone.state = DroneStateEnum.RECHARGING;
+            drone.batteryCapacity = 100;
+            await drone.save();
+            return drone;
+        } catch (error) {
+            throw new InternalServerErrorException(error.message);
+        }
+    }
 
 }
