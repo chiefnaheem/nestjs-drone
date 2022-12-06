@@ -20,7 +20,7 @@ export class MedicationService {
 
   //create medication
   async createMedication(
-    medication: MedicationEntity,
+    medication: MedicationDto,
   ): Promise<MedicationEntity> {
     try {
       const newMedication = new this.medicationModel(medication);
@@ -57,7 +57,7 @@ export class MedicationService {
     //update medication
     async updateMedication(
         id: string,
-        medication: MedicationEntity,
+        medication: UpdateMedicationDto,
     ): Promise<MedicationEntity> {
         try {
             const updatedMedication = await this.medicationModel
