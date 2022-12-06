@@ -1,16 +1,27 @@
 import { Prop, Schema, SchemaFactory } from '@nestjs/mongoose';
-import { Document, Types } from 'mongoose';
+import { Document } from 'mongoose';
 import { mongooseSchemaConfig } from 'src/utils/schema.config';
+import { DroneModelEnum, DroneStateEnum } from '../enum/drone.enum';
 
 @Schema(mongooseSchemaConfig)
 export class DroneEntity {
-    /*
-    A **Drone** has:
-- serial number (100 characters max);
-- model (Lightweight, Middleweight, Cruiserweight, Heavyweight);
-- weight limit (500gr max);
-- battery capacity (percentage);
-- state (IDLE, LOADING, LOADED, DELIVERING, DELIVERED, RETURNING).
-    */
-    
+  @Prop({
+    required: true,
+  })
+  serialNumber: string;
+
+  @Prop({ type: String })
+  model: DroneModelEnum;
+
+  @Prop()
+  weightLimit: number;
+
+  @Prop()
+  batteryCapacity: number;
+
+  @Prop({ type: String })
+  state: DroneStateEnum;
 }
+
+export const DroneSchema = SchemaFactory.createForClass(DroneEntity);
+export type DroneDocument = DroneEntity & Document;
