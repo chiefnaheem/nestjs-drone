@@ -158,11 +158,24 @@ export class DroneService {
     }
   }
 
-    //get drone by state
-    async getDroneByState(state: string): Promise<DroneEntity[]> {
+  //get drone by state
+  async getDroneByState(state: string): Promise<DroneEntity[]> {
+    try {
+      const drone = await this.droneModel.find({ state: state }).exec();
+      if (!drone) {
+        throw new NotFoundException('Drone not found');
+      }
+      return drone;
+    } catch (error) {
+      throw new InternalServerErrorException(error.message);
+    }
+  }
+
+  //get medications items loaded in a drone
+    async getMedicationItems(id: string): Promise<DroneEntity> {
         try {
-            const drone = await this.droneModel.find
-            ({state: state}).exec();
+            const drone = await this.droneModel.findById
+            (id).populate('medicationItems').exec();
             if (!drone) {
                 throw new NotFoundException('Drone not found');
             }
@@ -171,6 +184,4 @@ export class DroneService {
             throw new InternalServerErrorException(error.message);
         }
     }
-
-    //get medications items loaded in a drone
 }
