@@ -172,16 +172,44 @@ export class DroneService {
   }
 
   //get medications items loaded in a drone
-    async getMedicationItems(id: string): Promise<DroneEntity> {
-        try {
-            const drone = await this.droneModel.findById
-            (id).populate('medicationItems').exec();
-            if (!drone) {
-                throw new NotFoundException('Drone not found');
-            }
-            return drone;
-        } catch (error) {
-            throw new InternalServerErrorException(error.message);
-        }
+  async getMedicationItems(id: string): Promise<DroneEntity> {
+    try {
+      const drone = await this.droneModel
+        .findById(id)
+        .populate('medicationItems')
+        .exec();
+      if (!drone) {
+        throw new NotFoundException('Drone not found');
+      }
+      return drone;
+    } catch (error) {
+      throw new InternalServerErrorException(error.message);
     }
+  }
+
+  //check availabale drones for loading
+    async checkAvailableDrones(): Promise<DroneEntity[]> {
+    try {
+      //abailable drones must have state of idle and with batteryCapacity greater than 25. 
+      //and must be that it contains no medicineItem
+
+        const drones = await this.droneModel.find
+        (
+            {
+                $and: [
+                    { state: DroneStateEnum.IDLE },
+                    { batteryCapacity: { $gt: 25 } },
+                    { medicationItems: { $size: 0 } }
+                ]
+            }
+        ).exec();
+        if (!drones) {
+            throw new NotFoundException('Drone not found');
+        }
+        return drones;
+    } catch (error) {
+        throw new InternalServerErrorException(error.message);
+    }
+}
+
 }
