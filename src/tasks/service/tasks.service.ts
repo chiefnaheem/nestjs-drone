@@ -33,5 +33,4 @@ export class TasksService {
       throw new InternalServerErrorException(error.message);
     }
   }
-
 }
