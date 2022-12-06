@@ -24,9 +24,7 @@ export class MedicationEntity {
   })
   code: string;
 
-  @Prop({
-    required: true,
-  })
+  @Prop()
   image: string;
 }
 
