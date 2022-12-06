@@ -138,25 +138,39 @@ export class DroneService {
     }
   }
 
-    //recharge drone
-    async rechargeDrone(id: string): Promise<DroneEntity> {
+  //recharge drone
+  async rechargeDrone(id: string): Promise<DroneEntity> {
+    try {
+      const drone = await this.droneModel.findById(id);
+      if (!drone) {
+        throw new NotFoundException('Drone not found');
+      }
+
+      if (drone.batteryCapacity === 100) {
+        throw new BadRequestException('Drone battery is full');
+      }
+
+      drone.batteryCapacity = 100;
+      await drone.save();
+      return drone;
+    } catch (error) {
+      throw new InternalServerErrorException(error.message);
+    }
+  }
+
+    //get drone by state
+    async getDroneByState(state: string): Promise<DroneEntity[]> {
         try {
-            const drone = await this.droneModel.findById
-            (id);
+            const drone = await this.droneModel.find
+            ({state: state}).exec();
             if (!drone) {
                 throw new NotFoundException('Drone not found');
             }
-            
-            if (drone.batteryCapacity === 100) {
-                throw new BadRequestException('Drone battery is full');
-            }
-           
-            drone.batteryCapacity = 100;
-            await drone.save();
             return drone;
         } catch (error) {
             throw new InternalServerErrorException(error.message);
         }
     }
 
+    //get medications items loaded in a drone
 }
