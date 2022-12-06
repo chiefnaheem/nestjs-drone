@@ -9,6 +9,7 @@ import { envConfig } from '../config/constant/env.configuration';
 import { configValidation } from '../config/validator/config.validator';
 import { MedicationModule } from 'src/medication/medication.module';
 import { DroneModule } from 'src/drone/drone.module';
+import { TasksModule } from 'src/tasks/tasks.module';
 
 @Module({
   imports: [
@@ -29,6 +30,7 @@ import { DroneModule } from 'src/drone/drone.module';
     HttpModule,
     MedicationModule,
     DroneModule,
+    TasksModule,
   ],
   controllers: [AppController],
   providers: [AppService],
