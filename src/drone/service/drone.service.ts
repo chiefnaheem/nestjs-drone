@@ -9,6 +9,7 @@ import { InjectModel } from '@nestjs/mongoose';
 import { DroneDocument, DroneEntity } from '../schema/drone.schema';
 import { RegisterDroneDto } from '../dto/drone.dto';
 import { MedicationService } from 'src/medication/service/medication.service';
+import { DroneStateEnum } from '../enum/drone.enum';
 
 @Injectable()
 export class DroneService {
