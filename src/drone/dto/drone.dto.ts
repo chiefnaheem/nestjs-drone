@@ -5,6 +5,7 @@ import {
   IsString,
   IsNumber,
   Matches,
+  IsOptional
 } from 'class-validator';
 import { PartialType } from '@nestjs/mapped-types';
 import { DroneModelEnum, DroneStateEnum } from '../enum/drone.enum';
@@ -31,9 +32,9 @@ export class RegisterDroneDto {
   @Matches(/^[0-9]{1,3}$/)
   batteryCapacity: number;
 
-  @IsNotEmpty()
   @IsString()
   @Matches(/^(IDLE|LOADING|LOADED|DELIVERING|DELIVERED|RETURNING)$/)
+  @IsOptional()
   state: DroneStateEnum;
 }
 export class UpdateRegisterDroneDto extends PartialType(RegisterDroneDto) {}

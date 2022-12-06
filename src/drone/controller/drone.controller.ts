@@ -32,10 +32,7 @@ export class DroneController {
     return this.droneService.getDroneById(id);
   }
 
-    //update drone
-    @Patch(':id')
-    async updateDrone(@Param('id') id: string, @Body() drone: UpdateRegisterDroneDto) {
-        return this.droneService.updateDrone(id, drone);
-        }
+    //load drone
+    
 
 }
