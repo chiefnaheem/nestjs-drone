@@ -36,6 +36,9 @@ export class DroneEntity {
     enum: DroneStateEnum,
   })
   state: DroneStateEnum;
+
+  @Prop([{type: mongoose.Schema.Types.ObjectId, ref: MedicationEntity.name }])
+  medicationItem: Types.ObjectId[]
 }
 
 export const DroneSchema = SchemaFactory.createForClass(DroneEntity);
