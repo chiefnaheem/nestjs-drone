@@ -7,6 +7,7 @@ import {
   Param,
   Delete,
 } from '@nestjs/common';
+import { MedicationDto } from '../dto/medication.dto';
 import { MedicationService } from '../service/medication.service';
 
 @Controller('medication')
@@ -16,5 +17,6 @@ export class MedicationController {
   //create medication
     @Post()
     async createMedication(@Body() medication: MedicationDto) {
-        
+        return this.medicationService.createMedication(medication);
+    }
 }
