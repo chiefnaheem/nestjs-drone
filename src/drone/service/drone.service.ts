@@ -111,28 +111,30 @@ export class DroneService {
     }
   }
 
-  //deliver medication items
-    async deliverMedication(id: string): Promise<DroneEntity> {
-        try {
-            const drone = await this.droneModel.findById(id);
-            if (!drone) {
-                throw new NotFoundException('Drone not found');
-            }
-            if (drone.state === 'DELIVERING') {
-                throw new BadRequestException('Drone is already delivering');
-            }
-            if (drone.batteryCapacity < 25) {
-                throw new BadRequestException('Drone battery is low');
-            }
-            if (drone.medicationItems.length === 0) {
-                throw new BadRequestException('Drone has no medication items');
-            }
-            drone.state = DroneStateEnum.DELIVERING;
-            drone.batteryCapacity -= 5;
-            await drone.save();
-            return drone;
-        } catch (error) {
-            throw new InternalServerErrorException(error.message);
-        }
+  //deliver medication items then empty the medication items from the drone
+  async deliverMedication(id: string): Promise<DroneEntity> {
+    try {
+      const drone = await this.droneModel.findById(id);
+      if (!drone) {
+        throw new NotFoundException('Drone not found');
+      }
+      if (drone.state === 'DELIVERING') {
+        throw new BadRequestException('Drone is already delivering');
+      }
+      if (drone.batteryCapacity < 25) {
+        throw new BadRequestException('Drone battery is low');
+      }
+      if (drone.medicationItems.length === 0) {
+        throw new BadRequestException('Drone is empty');
+      }
+      
+      drone.state = DroneStateEnum.DELIVERING;
+      drone.batteryCapacity -= 5;
+      drone.medicationItems = [];
+      await drone.save();
+      return drone;
+    } catch (error) {
+      throw new InternalServerErrorException(error.message);
     }
+  }
 }
