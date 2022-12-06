@@ -53,4 +53,38 @@ export class MedicationService {
             throw new InternalServerErrorException(error.message);
         }
     }
+
+    //update medication
+    async updateMedication(
+        id: string,
+        medication: MedicationEntity,
+    ): Promise<MedicationEntity> {
+        try {
+            const updatedMedication = await this.medicationModel
+                .findByIdAndUpdate(id, medication, { new: true })
+                .exec();
+            if (!updatedMedication) {
+                throw new NotFoundException('Medication not found');
+            }
+            return updatedMedication;
+        } catch (error) {
+            throw new InternalServerErrorException(error.message);
+        }
+    }
+
+    //delete medication
+    async deleteMedication(id: string): Promise<string> {
+        try {
+            const deletedMedication = await this.medicationModel
+                .findByIdAndDelete(id)
+                .exec();
+            if (!deletedMedication) {
+                throw new NotFoundException('Medication not found');
+            }
+            return 'Medication deleted';
+        } catch (error) {
+            throw new InternalServerErrorException(error.message);
+        }
+    }
+
 }
