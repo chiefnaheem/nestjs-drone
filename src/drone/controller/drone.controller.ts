@@ -20,15 +20,22 @@ export class DroneController {
     return this.droneService.registerDrone(drone);
   }
 
-    //get all drones
-    @Get()
-    async getAllDrones() {
-        return this.droneService.getAllDrones();
+  //get all drones
+  @Get()
+  async getAllDrones() {
+    return this.droneService.getAllDrones();
+  }
+
+  //get drone by id
+  @Get(':id')
+  async getDroneById(@Param('id') id: string) {
+    return this.droneService.getDroneById(id);
+  }
+
+    //update drone
+    @Patch(':id')
+    async updateDrone(@Param('id') id: string, @Body() drone: UpdateRegisterDroneDto) {
+        return this.droneService.updateDrone(id, drone);
         }
 
-    //get drone by id
-    @Get(':id')
-    async getDroneById(@Param('id') id: string) {
-        return this.droneService.getDroneById(id);
-        }
 }
