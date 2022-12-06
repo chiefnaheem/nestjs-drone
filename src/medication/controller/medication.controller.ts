@@ -7,7 +7,7 @@ import {
   Param,
   Delete,
 } from '@nestjs/common';
-import { MedicationDto } from '../dto/medication.dto';
+import { MedicationDto, UpdateMedicationDto } from '../dto/medication.dto';
 import { MedicationService } from '../service/medication.service';
 
 @Controller('medication')
@@ -39,5 +39,11 @@ export class MedicationController {
         @Body() medication: UpdateMedicationDto,
     ) {
         return this.medicationService.updateMedication(id, medication);
+    }
+
+    //delete medication
+    @Delete(':id')
+    async deleteMedication(@Param('id') id: string) {
+        return this.medicationService.deleteMedication(id);
     }
 }
