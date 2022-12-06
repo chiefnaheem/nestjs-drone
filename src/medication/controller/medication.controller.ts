@@ -19,4 +19,10 @@ export class MedicationController {
     async createMedication(@Body() medication: MedicationDto) {
         return this.medicationService.createMedication(medication);
     }
+
+    //get all medications
+    @Get()
+    async getAllMedications() {
+        return this.medicationService.getAllMedications();
+    }
 }
