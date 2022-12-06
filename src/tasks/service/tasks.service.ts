@@ -17,7 +17,7 @@ export class TasksService {
     private droneModel: Model<DroneDocument>,
   ) {}
 
-  @Cron('0 */30 * * * *')
+  @Cron('0 */5 * * * *')
   async handleCron() {
     try {
       const drones = await this.droneModel.find().exec();
@@ -33,4 +33,5 @@ export class TasksService {
       throw new InternalServerErrorException(error.message);
     }
   }
+
 }
