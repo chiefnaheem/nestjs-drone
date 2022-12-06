@@ -1,8 +1,12 @@
 import { Module } from '@nestjs/common';
 import { TasksService } from './service/tasks.service';
+import { ScheduleModule } from '@nestjs/schedule';
+import { MongooseModule } from '@nestjs/mongoose';
+import { DroneEntity, DroneSchema } from 'src/drone/schema/drone.schema';
 
 @Module({
-  imports: [ScheduleModule.forRoot(),
+  imports: [
+    ScheduleModule.forRoot(),
     MongooseModule.forFeatureAsync([
       {
         name: DroneEntity.name,
@@ -11,7 +15,7 @@ import { TasksService } from './service/tasks.service';
         },
       },
     ]),
-    ],
+  ],
   providers: [TasksService],
   exports: [TasksService],
 })
