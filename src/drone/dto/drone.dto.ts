@@ -24,12 +24,10 @@ export class RegisterDroneDto {
 
   @IsNotEmpty()
   @IsNumber()
-  @Matches(/^[0-9]{1,3}$/)
   weightLimit: number;
 
   @IsNotEmpty()
   @IsNumber()
-  @Matches(/^[0-9]{1,3}$/)
   batteryCapacity: number;
 
   @IsString()
