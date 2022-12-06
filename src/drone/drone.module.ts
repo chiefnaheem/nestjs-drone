@@ -1,10 +1,11 @@
 import { Module } from '@nestjs/common';
 import { MongooseModule } from '@nestjs/mongoose';
+import { DroneController } from './controller/drone.controller';
 import { DroneEntity, DroneSchema } from './schema/drone.schema';
 import { DroneService } from './service/drone.service';
 
 @Module({
-    imports: [
+  imports: [
     MongooseModule.forFeatureAsync([
       {
         name: DroneEntity.name,

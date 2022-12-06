@@ -5,22 +5,38 @@ import { DroneModelEnum, DroneStateEnum } from '../enum/drone.enum';
 
 @Schema(mongooseSchemaConfig)
 export class DroneEntity {
-  @Prop({
-    required: true,
-  })
-  serialNumber: string;
+    @Prop({
+        required: true,
+        unique: true,
+        maxlength: 100,
+    })
+    serialNumber: string;
 
-  @Prop({ type: String })
-  model: DroneModelEnum;
+    @Prop({
+        required: true,
+        enum: DroneModelEnum,
+    })
+    model: DroneModelEnum;
 
-  @Prop()
-  weightLimit: number;
+    @Prop({
+        required: true,
+        max: 500,
+    })
+    weightLimit: number;
 
-  @Prop()
-  batteryCapacity: number;
+    @Prop({
+        required: true,
+        min: 0,
+        max: 100,
+    })
+    batteryCapacity: number;
 
-  @Prop({ type: String })
-  state: DroneStateEnum;
+    @Prop({
+        required: true,
+        enum: DroneStateEnum,
+    })
+    state: DroneStateEnum;
+
 }
 
 export const DroneSchema = SchemaFactory.createForClass(DroneEntity);
