@@ -7,6 +7,8 @@ import { ConfigModule, ConfigService } from '@nestjs/config';
 import { MongooseModule } from '@nestjs/mongoose';
 import { envConfig } from '../config/constant/env.configuration';
 import { configValidation } from '../config/validator/config.validator';
+import { MedicationModule } from 'src/medication/medication.module';
+import { DroneModule } from 'src/drone/drone.module';
 
 @Module({
   imports: [
@@ -25,6 +27,8 @@ import { configValidation } from '../config/validator/config.validator';
     }),
     TerminusModule,
     HttpModule,
+    MedicationModule,
+    DroneModule,
   ],
   controllers: [AppController],
   providers: [AppService],
