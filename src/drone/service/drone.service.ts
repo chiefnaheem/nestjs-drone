@@ -88,7 +88,7 @@ export class DroneService {
       if (drone.state === 'LOADING') {
         throw new BadRequestException('Drone is already loading');
       }
-      if (drone.batteryCapacity < 25) {
+      if (drone.batteryLevel < 25) {
         throw new BadRequestException('Drone battery is low');
       }
 
@@ -100,9 +100,9 @@ export class DroneService {
       if (totalWeight > drone.weightLimit) {
         throw new BadRequestException('Drone weight limit exceeded');
       }
-      //if all is good, we will update the drone state to LOADING and decrement the batteryCapacity
+      //if all is good, we will update the drone state to LOADING and decrement the batteryLevel
       drone.state = DroneStateEnum.LOADING;
-      drone.batteryCapacity -= 5;
+      drone.batteryLevel -= 5;
       drone.medicationItems.push(...medication);
       await drone.save();
       return drone;
@@ -121,15 +121,15 @@ export class DroneService {
       if (drone.state === 'DELIVERING') {
         throw new BadRequestException('Drone is already delivering');
       }
-      if (drone.batteryCapacity < 25) {
+      if (drone.batteryLevel < 25) {
         throw new BadRequestException('Drone battery is low');
       }
       if (drone.medicationItems.length === 0) {
         throw new BadRequestException('Drone is empty');
       }
 
-      drone.state = DroneStateEnum.DELIVERING;
-      drone.batteryCapacity -= 5;
+      drone.state = DroneStateEnum.DELIVERED;
+      drone.batteryLevel -= 5;
       drone.medicationItems = [];
       await drone.save();
       return drone;
@@ -146,11 +146,11 @@ export class DroneService {
         throw new NotFoundException('Drone not found');
       }
 
-      if (drone.batteryCapacity === 100) {
+      if (drone.batteryLevel === 100) {
         throw new BadRequestException('Drone battery is full');
       }
 
-      drone.batteryCapacity = 100;
+      drone.batteryLevel = 100;
       await drone.save();
       return drone;
     } catch (error) {
@@ -190,15 +190,13 @@ export class DroneService {
   //check availabale drones for loading
     async checkAvailableDrones(): Promise<DroneEntity[]> {
     try {
-      //abailable drones must have state of idle and with batteryCapacity greater than 25. 
-      //and must be that it contains no medicineItem
 
         const drones = await this.droneModel.find
         (
             {
                 $and: [
                     { state: DroneStateEnum.IDLE },
-                    { batteryCapacity: { $gt: 25 } },
+                    { batteryLevel: { $gt: 25 } },
                     { medicationItems: { $size: 0 } }
                 ]
             }
@@ -211,5 +209,22 @@ export class DroneService {
         throw new InternalServerErrorException(error.message);
     }
 }
+
+//check a drone battery capacity
+async checkDroneBattery(id: string): Promise<any> {
+    try {
+        const drone = await this.droneModel.findById
+        (
+            id
+        ).exec();
+        if (!drone) {
+            throw new NotFoundException('Drone not found');
+        }
+        return {battery: drone.batteryLevel};
+    } catch (error) {
+        throw new InternalServerErrorException(error.message);
+    }
+}
+
 
 }

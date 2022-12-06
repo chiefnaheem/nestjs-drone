@@ -30,7 +30,7 @@ export class DroneEntity {
     min: 0,
     max: 100,
   })
-  batteryCapacity: number;
+  batteryLevel: number;
 
   @Prop({
     required: true,

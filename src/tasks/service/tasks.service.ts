@@ -22,8 +22,8 @@ export class TasksService {
     try {
       const drones = await this.droneModel.find().exec();
       drones.forEach(async (drone) => {
-        drone.batteryCapacity = drone.batteryCapacity - 1;
-        if (drone.batteryCapacity < 25) {
+        drone.batteryLevel = drone.batteryLevel - 1;
+        if (drone.batteryLevel < 25) {
           drone.state = DroneStateEnum.IDLE;
         }
         await drone.save();
@@ -33,5 +33,4 @@ export class TasksService {
       throw new InternalServerErrorException(error.message);
     }
   }
-
 }
