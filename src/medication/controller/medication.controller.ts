@@ -31,4 +31,13 @@ export class MedicationController {
     async getMedicationById(@Param('id') id: string) {
         return this.medicationService.getMedicationById(id);
     }
+
+    //update medication
+    @Patch(':id')
+    async updateMedication(
+        @Param('id') id: string,
+        @Body() medication: UpdateMedicationDto,
+    ) {
+        return this.medicationService.updateMedication(id, medication);
+    }
 }
