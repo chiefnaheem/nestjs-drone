@@ -1,5 +1,6 @@
 import { Prop, Schema, SchemaFactory } from '@nestjs/mongoose';
-import { Document } from 'mongoose';
+import mongoose, { Document, Types } from 'mongoose';
+import { MedicationEntity } from 'src/medication/schema/medication.schema';
 import { mongooseSchemaConfig } from 'src/utils/schema.config';
 import { DroneModelEnum, DroneStateEnum } from '../enum/drone.enum';
 

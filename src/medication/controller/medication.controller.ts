@@ -15,35 +15,35 @@ export class MedicationController {
   constructor(private readonly medicationService: MedicationService) {}
 
   //create medication
-    @Post()
-    async createMedication(@Body() medication: MedicationDto) {
-        return this.medicationService.createMedication(medication);
-    }
+  @Post()
+  async createMedication(@Body() medication: MedicationDto) {
+    return this.medicationService.createMedication(medication);
+  }
 
-    //get all medications
-    @Get()
-    async getAllMedications() {
-        return this.medicationService.getAllMedications();
-    }
+  //get all medications
+  @Get()
+  async getAllMedications() {
+    return this.medicationService.getAllMedications();
+  }
 
-    //get medication by id
-    @Get(':id')
-    async getMedicationById(@Param('id') id: string) {
-        return this.medicationService.getMedicationById(id);
-    }
+  //get medication by id
+  @Get(':id')
+  async getMedicationById(@Param('id') id: string) {
+    return this.medicationService.getMedicationById(id);
+  }
 
-    //update medication
-    @Patch(':id')
-    async updateMedication(
-        @Param('id') id: string,
-        @Body() medication: UpdateMedicationDto,
-    ) {
-        return this.medicationService.updateMedication(id, medication);
-    }
+  //update medication
+  @Patch(':id')
+  async updateMedication(
+    @Param('id') id: string,
+    @Body() medication: UpdateMedicationDto,
+  ) {
+    return this.medicationService.updateMedication(id, medication);
+  }
 
-    //delete medication
-    @Delete(':id')
-    async deleteMedication(@Param('id') id: string) {
-        return this.medicationService.deleteMedication(id);
-    }
+  //delete medication
+  @Delete(':id')
+  async deleteMedication(@Param('id') id: string) {
+    return this.medicationService.deleteMedication(id);
+  }
 }
