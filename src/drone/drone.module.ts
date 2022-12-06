@@ -14,6 +14,7 @@ import { DroneService } from './service/drone.service';
         },
       },
     ]),
+    MedicationModule,
   ],
   controllers: [DroneController],
   providers: [DroneService],
