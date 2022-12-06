@@ -110,4 +110,23 @@ export class DroneService {
       throw new InternalServerErrorException(error.message);
     }
   }
+
+  //checking loaded medication items for a given drone;
+    async checkLoadedMedication(id: string): Promise<DroneEntity> {
+        try {
+            const drone = await this.droneModel.findById(id);
+            if (!drone) {
+                throw new NotFoundException('Drone not found');
+            }
+            if (drone.state === 'LOADING') {
+                throw new BadRequestException('Drone is loading');
+            }
+            if (drone.state === 'DELIVERING') {
+                throw new BadRequestException('Drone is delivering');
+            }
+            return drone;
+        } catch (error) {
+            throw new InternalServerErrorException(error.message);
+        }
+    }
 }
