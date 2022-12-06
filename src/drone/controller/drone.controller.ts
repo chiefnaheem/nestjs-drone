@@ -33,6 +33,9 @@ export class DroneController {
   }
 
     //load drone
-    
+    @Patch(':id/load')
+    async loadDrone(@Param('id') id: string, @Body() medication: string[]) {
+        return this.droneService.loadDrone(id, medication);
+        }
 
 }
