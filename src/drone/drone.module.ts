@@ -1,5 +1,6 @@
 import { Module } from '@nestjs/common';
 import { MongooseModule } from '@nestjs/mongoose';
+import { MedicationModule } from 'src/medication/medication.module';
 import { DroneController } from './controller/drone.controller';
 import { DroneEntity, DroneSchema } from './schema/drone.schema';
 import { DroneService } from './service/drone.service';
