@@ -188,43 +188,37 @@ export class DroneService {
   }
 
   //check availabale drones for loading
-    async checkAvailableDrones(): Promise<DroneEntity[]> {
+  async checkAvailableDrones(): Promise<DroneEntity[]> {
     try {
-
-        const drones = await this.droneModel.find
-        (
-            {
-                $and: [
-                    { state: DroneStateEnum.IDLE },
-                    { batteryLevel: { $gt: 25 } },
-                    { medicationItems: { $size: 0 } }
-                ]
-            }
-        ).exec();
-        if (!drones) {
-            throw new NotFoundException('Drone not found');
-        }
-        return drones;
+      const drones = await this.droneModel
+        .find({
+          $and: [
+            { state: DroneStateEnum.IDLE },
+            { batteryLevel: { $gt: 25 } },
+            { medicationItems: { $size: 0 } },
+          ],
+        })
+        .exec();
+      if (!drones) {
+        throw new NotFoundException('Drone not found');
+      }
+      return drones;
     } catch (error) {
-        throw new InternalServerErrorException(error.message);
+      throw new InternalServerErrorException(error.message);
     }
-}
+  }
 
-//check a drone battery capacity
-async checkDroneBattery(id: string): Promise<any> {
+  //check a drone battery capacity
+  async checkDroneBattery(id: string): Promise<any> {
     try {
-        const drone = await this.droneModel.findById
-        (
-            id
-        ).exec();
-        if (!drone) {
-            throw new NotFoundException('Drone not found');
-        }
-        return {battery: drone.batteryLevel};
+      const drone = await this.droneModel.findById(id).exec();
+      if (!drone) {
+        throw new NotFoundException('Drone not found');
+      }
+      console.log(drone);
+      return { battery: drone.batteryLevel };
     } catch (error) {
-        throw new InternalServerErrorException(error.message);
+      throw new InternalServerErrorException(error.message);
     }
-}
-
-
+  }
 }
