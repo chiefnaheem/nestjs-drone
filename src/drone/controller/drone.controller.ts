@@ -33,19 +33,19 @@ export class DroneController {
   }
 
   //load drone
-  @Patch(':id/load')
+  @Patch('load/:id')
   async loadDrone(@Param('id') id: string, @Body() medication: string[]) {
     return this.droneService.loadDrone(id, medication);
   }
 
   //deliver medication
-  @Patch(':id/deliver')
+  @Patch('deliver/:id')
   async deliverMedication(@Param('id') id: string) {
     return this.droneService.deliverMedication(id);
   }
 
   //check drone battery level
-    @Get(':id/battery')
+    @Get('battery/:id')
     async checkBatteryLevel(@Param('id') id: string) {
         return this.droneService.checkDroneBattery(id);
         }
