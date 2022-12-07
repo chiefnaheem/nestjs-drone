@@ -190,6 +190,7 @@ export class DroneService {
   //check availabale drones for loading
   async checkAvailableDrones(): Promise<DroneEntity[]> {
     try {
+        console.log('you')
       const drones = await this.droneModel
         .find({
           $and: [
@@ -202,6 +203,7 @@ export class DroneService {
       if (!drones) {
         throw new NotFoundException('Drone not found');
       }
+      console.log('hi')
       return drones;
     } catch (error) {
       throw new InternalServerErrorException(error.message);

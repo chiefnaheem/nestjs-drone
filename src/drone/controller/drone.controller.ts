@@ -53,6 +53,7 @@ export class DroneController {
   //check available drones
   @Get('available')
   async checkAvailableDrones() {
+    console.log('hey')
     return this.droneService.checkAvailableDrones();
   }
 }
