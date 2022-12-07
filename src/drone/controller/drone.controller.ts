@@ -56,4 +56,10 @@ export class DroneController {
     console.log('hey');
     return this.droneService.checkAvailableDrones();
   }
+
+  //delete drone
+  @Delete(':id')
+  async checkBatteryLevel(@Param('id') id: string) {
+    return this.droneService.deleteDrone(id);
+  }
 }

@@ -1,3 +1,4 @@
+/* eslint-disable @typescript-eslint/adjacent-overload-signatures */
 import {
   BadRequestException,
   Injectable,
@@ -223,15 +224,15 @@ export class DroneService {
   }
 
   //delete drone
-    async deleteDrone(id: string): Promise<string> {
-        try {
-            const deletedDrone = await this.droneModel.findByIdAndDelete(id);
-            if (!deletedDrone) {
-            throw new NotFoundException('Drone not found');
-            }
-            return 'drone deleted';
-        } catch (error) {
-            throw new InternalServerErrorException(error.message);
-        }
-        }
+  async deleteDrone(id: string): Promise<string> {
+    try {
+      const deletedDrone = await this.droneModel.findByIdAndDelete(id);
+      if (!deletedDrone) {
+        throw new NotFoundException('Drone not found');
+      }
+      return 'drone deleted';
+    } catch (error) {
+      throw new InternalServerErrorException(error.message);
+    }
+  }
 }
