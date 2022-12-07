@@ -45,8 +45,14 @@ export class DroneController {
   }
 
   //check drone battery level
-    @Get('battery/:id')
-    async checkBatteryLevel(@Param('id') id: string) {
-        return this.droneService.checkDroneBattery(id);
-        }
+  @Get('battery/:id')
+  async checkBatteryLevel(@Param('id') id: string) {
+    return this.droneService.checkDroneBattery(id);
+  }
+
+  //check available drones
+  @Get('available')
+  async checkAvailableDrones() {
+    return this.droneService.checkAvailableDrones();
+  }
 }

@@ -215,7 +215,6 @@ export class DroneService {
       if (!drone) {
         throw new NotFoundException('Drone not found');
       }
-      console.log(drone);
       return { battery: drone.batteryLevel };
     } catch (error) {
       throw new InternalServerErrorException(error.message);
