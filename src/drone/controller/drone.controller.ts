@@ -59,7 +59,7 @@ export class DroneController {
 
   //delete drone
   @Delete(':id')
-  async checkBatteryLevel(@Param('id') id: string) {
+  async deleteDrone(@Param('id') id: string) {
     return this.droneService.deleteDrone(id);
   }
 }
