@@ -187,10 +187,9 @@ export class DroneService {
     }
   }
 
-  //check availabale drones for loading
+  //check available drones for loading
   async checkAvailableDrones(): Promise<DroneEntity[]> {
     try {
-        console.log('you')
       const drones = await this.droneModel
         .find({
           $and: [
@@ -203,7 +202,7 @@ export class DroneService {
       if (!drones) {
         throw new NotFoundException('Drone not found');
       }
-      console.log('hi')
+
       return drones;
     } catch (error) {
       throw new InternalServerErrorException(error.message);
@@ -222,4 +221,17 @@ export class DroneService {
       throw new InternalServerErrorException(error.message);
     }
   }
+
+  //delete drone
+    async deleteDrone(id: string): Promise<string> {
+        try {
+            const deletedDrone = await this.droneModel.findByIdAndDelete(id);
+            if (!deletedDrone) {
+            throw new NotFoundException('Drone not found');
+            }
+            return 'drone deleted';
+        } catch (error) {
+            throw new InternalServerErrorException(error.message);
+        }
+        }
 }
