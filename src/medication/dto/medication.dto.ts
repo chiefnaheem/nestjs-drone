@@ -21,7 +21,6 @@ export class MedicationDto {
 
   @IsNotEmpty()
   @IsNumber()
-//   @Matches(/^[0-9]{1,3}$/, { message: 'weight must be a number' })
   weight: number;
 
   @IsNotEmpty()
