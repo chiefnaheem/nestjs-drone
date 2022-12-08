@@ -50,12 +50,12 @@ export class DroneController {
     return this.droneService.checkDroneBattery(id);
   }
 
-  //check available drones
-  @Get('available')
-  async checkAvailableDrones() {
-    console.log('hey');
-    return this.droneService.checkAvailableDrones();
-  }
+  //get available drones
+//   @Get('get-available')
+//   async checkAvailable() {
+//     console.log('hi');
+//     // return this.droneService.checkAvailableDrones()
+//   }
 
   //delete drone
   @Delete(':id')

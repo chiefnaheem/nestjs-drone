@@ -26,7 +26,6 @@ export class MedicationEntity {
 
   @Prop()
   image: string;
-
 }
 
 export const MedicationSchema = SchemaFactory.createForClass(MedicationEntity);
