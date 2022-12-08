@@ -21,13 +21,13 @@ export class DroneController {
   }
 
   //get all drones
-  @Get()
+  @Get('all')
   async getAllDrones() {
     return this.droneService.getAllDrones();
   }
 
   //get drone by id
-  @Get(':id')
+  @Get('single/:id')
   async getDroneById(@Param('id') id: string) {
     return this.droneService.getDroneById(id);
   }
@@ -50,16 +50,15 @@ export class DroneController {
     return this.droneService.checkDroneBattery(id);
   }
 
-  //get available drones
-//   @Get('get-available')
-//   async checkAvailable() {
-//     console.log('hi');
-//     // return this.droneService.checkAvailableDrones()
-//   }
-
   //delete drone
   @Delete(':id')
   async deleteDrone(@Param('id') id: string) {
     return this.droneService.deleteDrone(id);
   }
+
+  @Get('available')
+  async getAvailableDrones () {
+    return this.droneService.checkAvailableDrones()
+  }
+  
 }
