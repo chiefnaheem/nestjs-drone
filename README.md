@@ -28,6 +28,8 @@
 
 ## Installation
 
+## Using the env file
+Create a .env file in the root folder. Copy the content of .env.sample and paste into the .env file created. Ensure you have docker installed and runing on your device.
 ```bash
 $ npm install
 ```
@@ -45,18 +47,13 @@ $ npm run start:dev
 $ npm run start:prod
 ```
 
-## Test
-
+## MongoDB Docker Container
+Run 
 ```bash
-# unit tests
-$ npm run test
-
-# e2e tests
-$ npm run test:e2e
-
-# test coverage
-$ npm run test:cov
+docker image pull mongo
 ```
+to pull docker image
+
 
 ## Support
 
